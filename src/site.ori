@@ -2,7 +2,7 @@
   // Truncate the source feed
   // Point at prod
   // TODO: clean up
-  feed.json = ../archive/feed.json
+  feed.json = https://cdn.jim-nielsen.com/pies/feed.json
   
   index.html = index.ori.html(feed.json)
   
