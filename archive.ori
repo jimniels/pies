@@ -36,7 +36,7 @@
    */ 
   feed.json = Tree.json({
     version: "https://jsonfeed.org/version/1.1",
-    title: 'My Instagram Archive',
+    title: 'Flying J Pies',
     home_page_url: 'https://pies.jim-nielsen.com',
     feed_url: 'https://pies.jim-nielsen.com/feed.json', 
     description: 'A picture of every pie I make.',
@@ -52,7 +52,7 @@
       // url: ''
       // image: essentially the first attachment?
 
-      title: fixText.js(post.title),
+      title: fixText.js(media[0].title),
       attachments: media.map(({ uri }, index) => {
         _local_path: uri,
         _filename: `${id}-${index}.jpg`,

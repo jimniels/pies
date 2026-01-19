@@ -20,12 +20,16 @@
   <body>
     <h1>${_.title}</h1>
     <div class="images">
-      ${_.items.map((item) => ` ${item.attachments.map((attachment, index) =>
-      index === 0 || true ? `<img
-        src="/${item.id}/${index}.jpg"
+      ${Tree.map(_.items, ({ title, attachments }) => Tree.map(attachments, ({ url }) =>
+      `<img
+        src="https://cdn.jim-nielsen.com/.netlify/images?url=${url}&w=360"
         width="180"
         height="180"
-      />` : ``)} `)}
+        alt="Photo of a pie"
+        loading="lazy"
+        title="${title}"
+      />` 
+      ))}
     </div>
   </body>
 </html>
