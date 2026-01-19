@@ -1,10 +1,12 @@
 {
   // Truncate the source feed
   // Point at prod
-  feed = ../archive/feed.json
+  // TODO: clean up
+  feed.json = ../archive/feed.json
   
-  index.html = index.ori.html(feed)
-  ...(../archive)
+  index.html = index.ori.html(feed.json)
+  
+  // TODO: favicon, etc.
 
   
 }
