@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      html {
+        color-scheme: dark light;
+      }
+      body {
+        margin: 0;
+      }
+      .images {
+        display: flex;
+
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>${_.title}</h1>
+    <div class="images">
+      ${_.items.map((item) => ` ${item.attachments.map((attachment, index) =>
+      index === 0 || true ? `<img
+        src="/${item.id}/${index}.jpg"
+        width="180"
+        height="180"
+      />` : ``)} `)}
+    </div>
+  </body>
+</html>

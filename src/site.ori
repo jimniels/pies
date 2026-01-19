@@ -1,0 +1,10 @@
+{
+  // Truncate the source feed
+  // Point at prod
+  feed = ../archive/feed.json
+  
+  index.html = index.ori.html(feed)
+  ...(../archive)
+
+  
+}

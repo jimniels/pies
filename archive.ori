@@ -1,0 +1,85 @@
+{
+  /**
+   * Data from Instagram archive
+   * 
+   * @type {Array<{
+   *   media: Array<{
+   *     // UTF-8 bytes that were incorrectly stored as Unicode escape codes
+   *     // https://chatgpt.com/share/696e71c1-827c-8009-a453-a7e44f2f60f5
+   *     title: string,
+   *     // Path to the media files
+   *     uri: string,
+   *     creation_timestamp: number
+   *   }>
+   * }>}
+   */
+  (igdata) = ./archive-instagram/your_instagram_activity/media/posts_1.json,
+
+  /**
+   * JSON feed format representation
+   * 
+   * This will be what we store on the CDN. The goal is to have a flat list of
+   * image files along with a `feed.json` file that contains all the metadata
+   * of everything in this directory. This is what the static site builder will
+   * use to generate an HTML page.
+   * 
+   * Why a flat list of image files? Because it makes it easy to view all the
+   * files in Finder like a gallery of photos.
+   * 
+   * build/
+   *   feed.json
+   *   2025-12-08T0105-0.jpg
+   *   2025-12-08T0105-1.jpg
+   *   ...
+   *   2026-01-16T1145-0.jpg
+   *   ...
+   */ 
+  feed.json = Tree.json({
+    version: "https://jsonfeed.org/version/1.1",
+    title: 'My Instagram Archive',
+    home_page_url: 'https://pies.jim-nielsen.com',
+    feed_url: 'https://pies.jim-nielsen.com/feed.json', 
+    description: 'A picture of every pie I make.',
+    authors: [{ name: 'Jim Nielsen', url: 'https://www.jim-nielsen.com' }],
+    items: Tree.map(igdata, ({ media }) => {
+      // ID of the post, e.g. `2025-12-08T0105`
+      // File names will be the ID plus an index counter for however many images are in the post
+      // (see file directory structure above)
+      id: new Date(Number(media[0].creation_timestamp) * 1000).toISOString().slice(0,16).replace(":", ''),
+      
+      // TODO: other data points?
+      // date_published
+      // url: ''
+      // image: essentially the first attachment?
+
+      title: fixText.js(post.title),
+      attachments: media.map(({ uri }, index) => {
+        _local_path: uri,
+        _filename: `${id}-${index}.jpg`,
+        url: `https://cdn.jim-nielsen.com/pies/${_filename}`,
+        type: 'image/jpg',
+      }),
+    })
+  })
+
+  /**
+   * Images
+   * 
+   * Looks at `feed.json` and finds all the image files from the Instagram archive
+   * and moves them all into the root directory with a unique name.
+   */
+
+  // Deep tree
+  // { 0: { 0: { 2025-12-08T0105-0.jpg: '<image>', 2025-12-08T0105-1.jpg: '<image>' }, 1: { 2025-11-27T1714-0.jpg: '<image>', 2025-11-27T1714-1.jpg: '<image>' } } }
+  (level2Tree): Tree.map((feed.json).items, ({ attachments }) => Tree.map(attachments, ({ _local_path, _filename }) => {
+    [`${ _filename }`]: ./instagram-archive[_local_path]
+  }))
+  // Flattened
+  // { 0: { 2025-12-08T0105-0.jpg: '<image>', 2025-12-08T0105-1.jpg: '<image>', }, 1: { 2025-11-27T1714-0.jpg: '<image>', 2025-11-27T1714-1.jpg: '<image>' } }
+  (level1Tree): Tree.deepValues(level2Tree)
+  // Flattened again
+  // { 2025-12-08T0105-0.jpg: '<image>', 2025-12-08T0105-1.jpg: '<image>', 2025-11-27T1714-0.jpg: '<image>', 2025-11-27T1714-1.jpg: '<image>' }
+  (level0Tree): Tree.merge(...level1Tree)
+  // Spread into our root directory
+  ...level0Tree
+}
