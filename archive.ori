@@ -4,7 +4,7 @@
    * 
    * @type {Array<{
    *   media: Array<{
-   *     // UTF-8 bytes that were incorrectly stored as Unicode escape codes
+   *     // UTF-8 bytes are incorrectly stored as Unicode escape codes
    *     // https://chatgpt.com/share/696e71c1-827c-8009-a453-a7e44f2f60f5
    *     title: string,
    *     // Path to the media files
@@ -72,7 +72,7 @@
   // Deep tree
   // { 0: { 0: { 2025-12-08T0105-0.jpg: '<image>', 2025-12-08T0105-1.jpg: '<image>' }, 1: { 2025-11-27T1714-0.jpg: '<image>', 2025-11-27T1714-1.jpg: '<image>' } } }
   (level2Tree): Tree.map((feed.json).items, ({ attachments }) => Tree.map(attachments, ({ _local_path, _filename }) => {
-    [`${ _filename }`]: ./instagram-archive[_local_path]
+    [`${ _filename }`]: ./archive-instagram[_local_path]
   }))
   // Flattened
   // { 0: { 2025-12-08T0105-0.jpg: '<image>', 2025-12-08T0105-1.jpg: '<image>', }, 1: { 2025-11-27T1714-0.jpg: '<image>', 2025-11-27T1714-1.jpg: '<image>' } }
