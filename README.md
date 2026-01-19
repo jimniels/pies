@@ -10,7 +10,7 @@ A site where I archive posts from Instagram and store them as a JSON feed + imag
 1. Export your archive from Instagram
 2. Unzip the archive and stick it in this directory named `archive-instagram`
 3. Run `npm run extract` to copy contents from instagram to local folder
-4. Run `npm run extract:deploy` to copy the contents to the cdn folder
+4. Run `npm run extract:copy` to copy the contents to the cdn folder
 
 ## Building the site
 
