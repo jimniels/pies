@@ -4,25 +4,55 @@
     <title>${_.title}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>${https://meyerweb.com/eric/tools/css/reset/reset.css}</style>
     <style>
       html {
         color-scheme: dark light;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       }
-      body {
-        margin: 0;
-      }
-      .images {
+      main {
         display: flex;
-
         flex-wrap: wrap;
         gap: 8px;
-        justify-content: center;
+        justify-content: flex-start;
+        padding: 8px;
+      }
+      nav {
+        padding: 8px 8px 0 8px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      @media (min-width: 1024px) {
+        body {
+          margin-right: 200px;
+          line-height: 1.2;
+        }
+        nav {
+          display: flex;
+          flex-direction: column;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+          position: fixed;
+          right: 16px;
+          bottom: 16px;
+          text-align: right;
+          gap: 0px;
+        }
+      }
+      h1 {
+        gap: 8px;
+        font-weight: 700;
       }
     </style>
   </head>
   <body>
-    <h1>${_.title}</h1>
-    <div class="images">
+    <nav>
+      <h1>Pies</h1>
+      <p><a href="https://www.jim-nielsen.com">by Jim Nielsen</a></p>
+    </nav>
+    <main>
       ${Tree.map(_.items, ({ title, attachments }) => Tree.map(attachments, ({ url }) =>
       `<img
         src="https://cdn.jim-nielsen.com/.netlify/images?url=${url}&w=360"
@@ -33,6 +63,6 @@
         title="${title}"
       />` 
       ))}
-    </div>
+    </main>
   </body>
 </html>
