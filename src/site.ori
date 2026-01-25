@@ -7,6 +7,7 @@
   index.html = index.ori.html(feed.json)
   
   // TODO: favicon, etc.
+  favicon.ico = ./favicon.ico
 
   
 }
