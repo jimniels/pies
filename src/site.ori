@@ -1,13 +1,14 @@
 {
-  // Truncate the source feed
-  // Point at prod
-  // TODO: clean up
-  feed.json = https://cdn.jim-nielsen.com/pies/feed.json
-  
-  index.html = index.ori.html(feed.json)
-  
-  // TODO: favicon, etc.
-  favicon.ico = ./favicon.ico
+  // Feed data pulled from archive on CDN
+  (_feed) = https://cdn.jim-nielsen.com/pies/feed.json
 
-  
+  // Website
+  index.html = index.ori.html(_feed)
+  feed.json = Tree.json({
+    ..._feed,
+    items: Tree.take(_feed.items, 10),
+  })
+  // TODO: one day when individual pies have their own pages
+  // feed.xml = Origami.rss(feed.json)
+  ...(../static)
 }

@@ -4,11 +4,58 @@
     <title>${_.title}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="description" content="${_.description}" />
+    <meta name="author" content="Jim Nielsen" />
+
+    <!-- Social previews -->
+    <meta property="og:title" content="${_.title}" />
+    <meta property="og:description" content="${_.description}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pies.jim-nielsen.com" />
+    <meta property="og:image" content="https://pies.jim-nielsen.com/og.jpg" />
+
+    <!-- RSS for subdomains -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://blog.jim-nielsen.com/feed.xml"
+      title="Jim Nielsen’s Blog: RSS Feed"
+    />
+    <link
+      rel="alternate"
+      type="application/json"
+      href="https://blog.jim-nielsen.com/feed.json"
+      title="Jim Nielsen’s Blog: JSON Feed"
+    />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://notes.jim-nielsen.com/feed.xml"
+      title="Jim Nielsen’s Notes: RSS Feed"
+    />
+    <link
+      rel="alternate"
+      type="application/json"
+      href="https://notes.jim-nielsen.com/feed.json"
+      title="Jim Nielsen’s Notes: JSON Feed"
+    />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://pies.jim-nielsen.com/feed.xml"
+      title="Jim Nielsen’s Pies: RSS Feed"
+    />
+    <link
+      rel="alternate"
+      type="application/json"
+      href="https://pies.jim-nielsen.com/feed.json"
+      title="Jim Nielsen’s Pies: JSON Feed"
+    />
+
     <!-- prettier-ignore -->
     <style>${https://meyerweb.com/eric/tools/css/reset/reset.css}</style>
     <style>
       html {
-        color-scheme: dark light;
         font-family:
           system-ui,
           -apple-system,
@@ -21,12 +68,17 @@
           "Open Sans",
           "Helvetica Neue",
           sans-serif;
+        background-color: #150a1c;
+        color: white;
+      }
+      a {
+        color: #d9a1ff;
       }
       main {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        justify-content: flex-start;
+        justify-content: center;
         padding: 8px;
       }
       nav {
@@ -34,11 +86,24 @@
         display: flex;
         gap: 8px;
         align-items: center;
+        justify-content: center;
+      }
+
+      @media (max-width: 1023px) {
+        nav > *:not(:first-child)::before {
+          content: "·";
+          margin-right: 8px;
+          opacity: 0.5;
+          font-weight: 400;
+        }
       }
       @media (min-width: 1024px) {
         body {
           margin-right: 200px;
           line-height: 1.2;
+        }
+        main {
+          justify-content: flex-start;
         }
         nav {
           display: flex;
@@ -58,24 +123,62 @@
         font-weight: 700;
       }
     </style>
+    <script
+      type="module"
+      src="https://cdn.jim-nielsen.com/shared/jim-site-switcher.js"
+    ></script>
   </head>
   <body>
+    <jim-site-switcher subdomain="pies"></jim-site-switcher>
     <nav>
       <h1>Pies</h1>
-      <p><a href="https://www.jim-nielsen.com">by Jim Nielsen</a></p>
+      <p>Baked with love</p>
+      <p><a href="https://www.jim-nielsen.com">By Jim Nielsen</a></p>
+      <form hidden>
+        <label>
+          <input type="radio" name="size" value="100" checked />
+          Small
+        </label>
+        <label>
+          <input type="radio" name="size" value="200" />
+          Medium
+        </label>
+        <label>
+          <input type="radio" name="size" value="400" />
+          Large
+        </label>
+      </form>
     </nav>
     <main>
       ${Tree.map(_.items, ({ title, attachments }) => Tree.map(attachments, ({
       url }) => `
       <img
-        src="https://cdn.jim-nielsen.com/.netlify/images?url=${url}&w=360"
-        width="180"
-        height="180"
+        src="https://cdn.jim-nielsen.com/.netlify/images?url=${url}&w=400"
+        width="200"
+        height="200"
         alt="Photo of a pie"
         loading="lazy"
         title="${title}"
       />
       ` ))}
     </main>
+    <!--
+    <script>
+      const images = Array.from(document.querySelectorAll("img"));
+      document.querySelector("form").addEventListener("change", (event) => {
+        const newSize = Number(event.target.value);
+
+        images.forEach((image) => {
+          const currentSize = image.width;
+          image.width = newSize;
+          image.height = newSize;
+          image.src = image.src.replace(
+            "&w=" + currentSize * 2,
+            "&w=" + newSize * 2
+          );
+        });
+      });
+    </script>
+    -->
   </body>
 </html>
