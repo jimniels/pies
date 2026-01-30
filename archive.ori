@@ -36,7 +36,7 @@
    */ 
   feed.json = Tree.json({
     version: "https://jsonfeed.org/version/1.1",
-    title: 'Pies — By Jim Nielsen',
+    title: 'Pies - Baked By Jim Nielsen',
     home_page_url: 'https://pies.jim-nielsen.com',
     feed_url: 'https://pies.jim-nielsen.com/feed.json', 
     description: 'A picture of every pie I make.',
