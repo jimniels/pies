@@ -34,7 +34,7 @@
    *   2026-01-16T1145-0.jpg
    *   ...
    */ 
-  feed.json = Tree.json({
+  _feed = {
     version: "https://jsonfeed.org/version/1.1",
     title: 'Pies - Baked By Jim Nielsen',
     home_page_url: 'https://pies.jim-nielsen.com',
@@ -60,7 +60,8 @@
         type: 'image/jpg',
       }),
     })
-  })
+  },
+  feed.json = Tree.json(_feed)
 
   /**
    * Images
@@ -71,7 +72,7 @@
 
   // Deep tree
   // { 0: { 0: { 2025-12-08T0105-0.jpg: '<image>', 2025-12-08T0105-1.jpg: '<image>' }, 1: { 2025-11-27T1714-0.jpg: '<image>', 2025-11-27T1714-1.jpg: '<image>' } } }
-  (level2Tree): Tree.map((feed.json).items, ({ attachments }) => Tree.map(attachments, ({ _local_path, _filename }) => {
+  (level2Tree): Tree.map((_feed).items, ({ attachments }) => Tree.map(attachments, ({ _local_path, _filename }) => {
     [`${ _filename }`]: ./archive-instagram[_local_path]
   }))
   // Flattened
