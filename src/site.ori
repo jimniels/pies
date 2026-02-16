@@ -8,7 +8,5 @@
     ..._feed,
     items: Tree.take(_feed.items, 10),
   })
-  // TODO: one day when individual pies have their own pages
-  // feed.xml = Origami.rss(feed.json)
   ...(../static)
 }
