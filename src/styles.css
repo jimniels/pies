@@ -35,6 +35,23 @@ img {
   max-width: 100%;
   height: auto;
 }
+/*
+  TY C
+  https://bsky.app/profile/codepen.io/post/3mfkj3fwu6624
+*/
+main > * {
+  animation: fadeIn 0.5s ease both;
+  animation-delay: calc(0.025s * sibling-index());
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 @media (max-width: 630px) {
   main {
     display: grid;
