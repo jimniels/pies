@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "archive": "ori copy archive.ori, clear files:archive",
+    "archive:diff": "ori 'Dev.changes(~/Dropbox/cdn/pies/, archive)'",
     "archive:copy": "cp -R archive/* ~/Dropbox/cdn/pies/",
     "start": "ori serve watch src, =debug src/site.ori",
     "build": "ori copy src/site.ori, clear files:build"

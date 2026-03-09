@@ -34,7 +34,7 @@
    *   2026-01-16T1145-0.jpg
    *   ...
    */ 
-  _feed = {
+  (_feed) = {
     version: "https://jsonfeed.org/version/1.1",
     title: 'Pies - Baked By Jim Nielsen',
     home_page_url: 'https://pies.jim-nielsen.com',
